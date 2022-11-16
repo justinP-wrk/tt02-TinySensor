@@ -1,34 +1,14 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg)
 
-# What is Tiny Tapeout?
+# What is TinySensor?
 
-TinyTapeout is an educational project that aims to make it easier and cheaper than ever to get your digital designs manufactured on a real chip!
+TinySensor is an extremely small & basic sensor that aims to use external photodiode hardware as the input. Essentially think about a camera that only has 6 pixels, and each pixel is only 1 bit! A far cry from the multi-Megapixel cameras in all our phones, but still sensitive enough to know light from dark.
 
-Go to https://tinytapeout.com for instructions!
+## How it works
 
-## How to change the Wokwi project
+Inputs 1-6 will be connected to external photodiodes to read either a '0' or '1', inputs will be added together and displayed on the 7-segment display. This is accomplished by adding all of the inputs together, and then using a decoder to display the correct value on the 7 segment display. Additionally, any "good" camera has multiple modes of operation, right? This TinySensor has a "Capture" or a "Streaming" mode. 
 
-Edit the [info.yaml](info.yaml) and change the wokwi_id to match your project.
+## How to test
 
-## How to enable the GitHub actions to build the ASIC files
-
-Please see the instructions for:
-
-* [Enabling GitHub Actions](https://tinytapeout.com/faq/#when-i-commit-my-change-the-gds-action-isnt-running)
-* [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
-
-## How does it work?
-
-When you edit the info.yaml to choose a different ID, the [GitHub Action](.github/workflows/gds.yaml) will fetch the digital netlist of your design from Wokwi.
-
-After that, the action uses the open source ASIC tool called [OpenLane](https://www.zerotoasiccourse.com/terminology/openlane/) to build the files needed to fabricate an ASIC.
-
-## Resources
-
-* [FAQ](https://tinytapeout.com/faq/)
-* [Digital design lessons](https://tinytapeout.com/digital_design/)
-* [Join the community](https://discord.gg/rPK2nSjxy8)
-
-## What next?
-
-* Share your GDS on Twitter, tag it [#tinytapeout](https://twitter.com/hashtag/tinytapeout?src=hashtag_click) and [link me](https://twitter.com/matthewvenn)!
+Dip switches 1-6 can be used instead of external hw to provide inputs, and 7 is used to switch between Capture or Stream sample mode. Throw the switches and the total number should show up on the 7-segment display.
+Input pin 7 in the '0' position will require the use of the Step button in order to capture a single "frame" in time. While in position '1' it will use a 12bit counter to update the output continously about 1-2 times per second. without the counter the 10KHz clock would try to update the display far too many times per second. 
